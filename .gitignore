@@ -1,0 +1,11 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# production
+/common/__pycache__/*
+/MiniHome/__pycache__/*
+/apps/*/__pycache__/*
+/apps/*/migrations/__pycache__/*
+/apps/*/views/__pycache__/*
+/venv/*
+!/venv/requirements.txt
+.vscode
