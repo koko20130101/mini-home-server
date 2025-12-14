@@ -9,9 +9,10 @@ class UploadImages(models.Model):
     # 图片所属用户
     user = models.ForeignKey(
         'users.Users', on_delete=models.CASCADE, blank=True, null=True)
+    image_name = models.CharField(max_length=100, blank=True, null=True)
     image_type = models.IntegerField(default=0)
     image_url = models.ImageField(
-        upload_to=get_upload_to, height_field='height', width_field='width')
+        upload_to=get_upload_to, height_field='height', width_field='width', blank=True, null=True)
 
     class Meta:
         db_table = 'ot_upload_imges'

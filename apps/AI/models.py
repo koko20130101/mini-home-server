@@ -19,7 +19,7 @@ class Agent(models.Model):
     avatar_wait = models.CharField(
         verbose_name="等待动画", max_length=300, blank=True)
     avatar_speaking = models.CharField(
-        verbose_name="说话动画", max_length=300, blank=True)
+        verbose_name="说话动画", max_length=3000, blank=True)
     createTime = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
     salutation = models.TextField(verbose_name="开场白", blank=True)
     salutation_audio = models.CharField(

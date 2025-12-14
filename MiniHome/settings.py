@@ -179,6 +179,9 @@ MEDIA_ROOT = '/root/assets/'
 # 资源访问路径
 MEDIA_URL = 'https://www.scbbsc.com/resource/'
 
+# 上传大小限制
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
+
 # 使用扩展用户表
 AUTH_USER_MODEL = 'users.Users'
 
