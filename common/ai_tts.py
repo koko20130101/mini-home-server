@@ -4,6 +4,8 @@ import websockets
 import ssl
 from io import BytesIO
 from http import HTTPStatus
+import urllib.request
+from django.core.cache import cache
 
 # minimax
 MODULE = "speech-01-turbo"
@@ -108,3 +110,19 @@ async def text_to_audio(text: str, chunk_callback):
     finally:
         await close_connection(ws)
         await chunk_callback('finished', '')
+
+
+def getAliyunTTSToken(apikey):
+     # 获取阿里语音合成CosyVoice大模型的临时token，有效时间1800秒
+    url = "https://dashscope.aliyuncs.com/api/v1/tokens?expire_in_seconds=1800"
+    CosyVoice_token = cache.get('CosyVoice_token')
+    if CosyVoice_token: 
+        return CosyVoice_token
+    else:
+        req = urllib.request.Request(url,data={})
+        req.add_header('Authorization', apikey)
+        with urllib.request.urlopen(req) as response:
+            content = response.read().decode('utf-8')
+            obj = json.loads(content)
+            cache.set('CosyVoice_token', obj['token'], 1780*60)
+            return obj['token']

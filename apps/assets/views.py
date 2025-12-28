@@ -5,6 +5,7 @@ from .models import UploadImages, SystemConfig, GlobalClassify
 from .serializers import UploadImagesSerializer, SystemConfigSerializer, GlobalClassifySerializer
 from apps.AI.models import AIModels
 from common.ai_asr import getAliyunToken
+from common.ai_tts import getAliyunTTSToken
 from django.core.cache import cache
 from datetime import datetime
 
@@ -173,6 +174,19 @@ class SystemConfigViewSet(viewsets.ModelViewSet):
             return Response({"msg": 'ok'}, status.HTTP_200_OK)
         else:
             return Response({"msg": 'not ok'}, status.HTTP_200_OK)
+        
+    @action(methods=['POST'], detail=False, permission_classes=[permissions.IsAuthenticated])
+    def aliyunTTStoken(self, request, *args, **kwargs):
+        tts_code = request.data.get('code')
+        if tts_code:
+            ali_tts = AIModels.objects.filter(
+                    model_code=tts_code, is_enabled=True).first()
+            print(11,ali_tts)
+            if ali_tts:
+                    token = getAliyunTTSToken(ali_tts.api_key)
+            return Response({'token': token}, status.HTTP_200_OK)
+        else:
+            return Response({"msg": '获取失败'}, status.HTTP_503_SERVICE_UNAVAILABLE)
 
 
 class GlobalClassifyViewSet(viewsets.ModelViewSet):

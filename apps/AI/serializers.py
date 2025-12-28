@@ -9,7 +9,7 @@ class AgentSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         fields = ['id', 'agent_name', 'avatar',
-                  'max_round', 'salutation', 'salutation_audio','salutation_new', 'salutation_new_audio', 'brief', 'description', 'avatar_bg', 'avatar_wait', 'avatar_speaking', 'model', 'asr', 'voice_role', 'voice_rate', 'pitch_rate']
+                  'max_round', 'salutation', 'salutation_audio','salutation_new', 'salutation_new_audio', 'brief', 'description', 'avatar_bg', 'avatar_wait', 'avatar_speaking', 'model', 'asr', 'tts','voice_role', 'voice_rate', 'pitch_rate']
         data = super().to_representation(instance)
         resData = {}
         for field_name in data:
